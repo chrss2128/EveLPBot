@@ -36,7 +36,6 @@ namespace EveLPBot.Commands
 
             //TODO:
             // We can also access the channel from the Command Context.
-            //await Context.Channel.SendMessageAsync($"{num}^2 = {Math.Pow(num, 2)}");
             //This looks up Tritanium in The Forge
             //"https://esi.evetech.net/latest/markets/10000002/orders/?datasource=tranquility&order_type=sell&type_id=34"
             //jita id 60003760

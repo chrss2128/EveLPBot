@@ -12,9 +12,16 @@ namespace EveLPBot
 {
     static class GlobalMappings
     {
-        public static List<GenericItem> itemList = JsonConvert.DeserializeObject<List<GenericItem>>(File.ReadAllText(Resource1.idnamemap, System.Text.Encoding.UTF8));
+        public static readonly List<GenericItem> itemList;
 
         public static List<GenericBlueprint> blueprintList { get; set; }
+
+        static GlobalMappings()
+        {
+            Console.WriteLine("Setting up ItemId -> Name mappings");
+            itemList = JsonConvert.DeserializeObject<List<GenericItem>>(File.ReadAllText(Resource1.idnamemap, System.Text.Encoding.UTF8));
+            Console.WriteLine("Completed setup of ItemId -> Name mappings");
+        }
 
         public static void TestStaticStuff()
         {
