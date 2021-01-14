@@ -22,12 +22,12 @@ namespace EveLPBot.Commands
             public string StationId { get; set; }
         }
 
-        [Command("market")]
+        [Command("pricecheck")]
         //Arguments Expected: region, item Id, StationId
         public async Task MarketAsync(params string[] args)
         {
             long regionId = Convert.ToInt64(args[0]);
-            long itemId = Convert.ToInt64(args[1]);
+            long itemId = getItemIdByItemName(args[1]);
             long stationId = Convert.ToInt64(args[2]);
 
             //long regionId = Convert.ToInt64(args.RegionId);
@@ -70,6 +70,23 @@ namespace EveLPBot.Commands
             return marketData;
         }
 
+        //TODO: this is brute forcey, look into using a dictionary to do this more cleanly
+        private long getItemIdByItemName(string name)
+        {
+            foreach (GenericItem item in GlobalMappings.itemList)
+            {
+                Console.WriteLine("Checking item: " + item.name);
+                if (item.name.Equals(name))
+                {
+                    
+                    Console.WriteLine(item.id);
+                    return item.id;
+                }
+            }
+
+            Console.Write("Item " + name + " Not Found");
+            return 0;
+        }
         private double getMinSell(List<MarketOrder> sellOrders, long stationId)
         {
             double minSell = 0;

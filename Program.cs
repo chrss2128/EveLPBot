@@ -32,6 +32,7 @@ namespace EveLPBot
         {
             _client = new DiscordSocketClient(new DiscordSocketConfig
             {
+                
                 // How much logging do you want to see?
                 LogLevel = LogSeverity.Info,
 
@@ -44,8 +45,8 @@ namespace EveLPBot
                 // add Discord.Net.Providers.WS4Net from NuGet,
                 // add the `using` at the top, and uncomment this line:
                 //WebSocketProvider = WS4NetProvider.Instance
-            });
-
+            }) ;
+            GlobalMappings.TestStaticStuff();
             _commands = new CommandService(new CommandServiceConfig
             {
                 // Again, log level:
