@@ -121,10 +121,7 @@ namespace EveLPBot
             await InitCommands();
 
             // Login and connect.
-            await _client.LoginAsync(TokenType.Bot, "Nzk5MDE3NjAwNzg0NzkzNjcw.X_9dIQ.gquW41aUgliG-CbziyOO_aBvZsw");
-            //await _client.LoginAsync(TokenType.Bot,
-            // TODO:   // < DO NOT HARDCODE YOUR TOKEN >
-            //    Environment.GetEnvironmentVariable("DiscordToken"));
+            await _client.LoginAsync(TokenType.Bot, Environment.GetEnvironmentVariable("EVELPBOTTOKEN"));
             await _client.StartAsync();
 
             // Wait infinitely so your bot actually stays connected.

@@ -14,13 +14,16 @@ namespace EveLPBot
     {
         public static readonly List<GenericItem> itemList;
 
-        public static List<GenericBlueprint> blueprintList { get; set; }
+        public static readonly List<GenericBlueprint> blueprintList;
 
         static GlobalMappings()
         {
             Console.WriteLine("Setting up ItemId -> Name mappings");
             itemList = JsonConvert.DeserializeObject<List<GenericItem>>(File.ReadAllText(Resource1.idnamemap, System.Text.Encoding.UTF8));
             Console.WriteLine("Completed setup of ItemId -> Name mappings");
+            Console.WriteLine("Setting up blueprint mappings");
+            //TODO: Setup Blueprint Mappings
+            Console.WriteLine("Completed setup of blueprint mappings");
         }
 
         public static void TestStaticStuff()
