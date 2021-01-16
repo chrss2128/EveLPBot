@@ -68,5 +68,14 @@ namespace EveLPBot.Data {
                 return ResourceManager.GetString("idnamemap", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data\universemap.json.
+        /// </summary>
+        internal static string universemap {
+            get {
+                return ResourceManager.GetString("universemap", resourceCulture);
+            }
+        }
     }
 }
