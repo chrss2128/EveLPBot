@@ -31,10 +31,6 @@ namespace EveLPBot.Commands
             long itemId = Item.getItemIdByItemName(parsedArgs[1]);
             Location location = new Location(Convert.ToInt64(parsedArgs[0]), getStationId(parsedArgs[2]));
 
-            //long regionId = Convert.ToInt64(args.RegionId);
-            //long itemId = Convert.ToInt64(args.ItemId);
-            //long stationId = Convert.ToInt64(args.StationId);
-
             //TODO:
             // We can also access the channel from the Command Context.
             //This looks up Tritanium in The Forge
@@ -43,14 +39,16 @@ namespace EveLPBot.Commands
 
             //String json = MarketAPI.getOrdersForItem(10000002, 34);
 
-            List<MarketOrder> sellOrders = new List<MarketOrder>();
-            sellOrders = MarketAPI.getSellOrdersForItem(location.regionId, itemId);
+            //Blueprint.getSurfaceBuildCost()
+            //List<MarketOrder> sellOrders = new List<MarketOrder>();
+            //sellOrders = MarketAPI.getSellOrdersForItem(location.regionId, itemId);
 
+            double cost = Blueprint.getSurfaceBuildCost(Item.getBlueprintByItemId(itemId), location);
 
-            List<MarketOrder> buyOrders = new List<MarketOrder>();
-            buyOrders = MarketAPI.getBuyOrdersForItem(location.regionId, itemId);
+            //List<MarketOrder> buyOrders = new List<MarketOrder>();
+            //buyOrders = MarketAPI.getBuyOrdersForItem(location.regionId, itemId);
 
-            String message = aggregateMarketData(sellOrders, buyOrders, location.stationId);
+            String message = "Build Cost: " + cost;
 
             message = DiscordHelper.TruncateString(message);
             await Context.Channel.SendMessageAsync(message);
@@ -63,10 +61,6 @@ namespace EveLPBot.Commands
             string[] parsedArgs = DiscordHelper.parseCommands(args);
             long itemId = Item.getItemIdByItemName(parsedArgs[1]); 
             Location location = new Location(Convert.ToInt64(parsedArgs[0]) , getStationId(parsedArgs[2]));
-
-            //long regionId = Convert.ToInt64(args.RegionId);
-            //long itemId = Convert.ToInt64(args.ItemId);
-            //long stationId = Convert.ToInt64(args.StationId);
 
             //TODO:
             // We can also access the channel from the Command Context.

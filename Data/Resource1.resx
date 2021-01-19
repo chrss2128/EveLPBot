@@ -123,6 +123,9 @@
   <data name="idnamemap" xml:space="preserve">
     <value>Data\idnamemap.json</value>
   </data>
+  <data name="npccorpsmap" xml:space="preserve">
+    <value>Data\npcCorpsMap.json</value>
+  </data>
   <data name="universemap" xml:space="preserve">
     <value>Data\universemap.json</value>
   </data>

@@ -28,8 +28,9 @@ namespace EveLPBot.API
             {
                 json = wc.DownloadString($"https://esi.evetech.net/latest/markets/{regionId}/orders/?datasource=tranquility&order_type=buy&type_id={itemId}");
             }
-            
+
             return JsonConvert.DeserializeObject<List<MarketOrder>>(json);
+           
         }
     }
 }
