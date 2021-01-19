@@ -61,6 +61,15 @@ namespace EveLPBot.Data {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Data\BlueprintMap.json.
+        /// </summary>
+        internal static string blueprintmap {
+            get {
+                return ResourceManager.GetString("blueprintmap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Data\idnamemap.json.
         /// </summary>
         internal static string idnamemap {

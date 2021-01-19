@@ -28,7 +28,7 @@ namespace EveLPBot.Commands
         {
             long regionId = Convert.ToInt64(args[0]);
             long itemId = getItemIdByItemName(args[1]);
-            long stationId = Convert.ToInt64(args[2]);
+            long stationId = getStationId(args[2]);
 
             //long regionId = Convert.ToInt64(args.RegionId);
             //long itemId = Convert.ToInt64(args.ItemId);
@@ -51,7 +51,6 @@ namespace EveLPBot.Commands
 
             List<MarketOrder> buyOrders = new List<MarketOrder>();
             buyOrders = JsonConvert.DeserializeObject<List<MarketOrder>>(json);
-
 
             String message = aggregateMarketData(sellOrders, buyOrders, stationId);
             
@@ -123,5 +122,20 @@ namespace EveLPBot.Commands
 
             return maxBuy;
         }
-    }
+
+
+        private long getStationId(string stationID)
+        {
+            long returnId = 0;
+            returnId = SystemEnums.systemNameStationIdMappings.GetValueOrDefault(stationID, 0);
+
+            if (returnId == 0)
+            {
+                returnId = Convert.ToInt64(stationID);
+            }
+
+            return returnId;
+        }
+    } 
+
 }
