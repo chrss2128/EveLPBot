@@ -1,6 +1,7 @@
 ﻿using Discord.Commands;
 
 using EveLPBot.API;
+using EveLPBot.API.Database;
 using EveLPBot.Logic;
 using EveLPBot.Model;
 
@@ -28,7 +29,7 @@ namespace EveLPBot.Commands
         public async Task BlueprintBuildCostAsync([Remainder] string args)
         {
             string[] parsedArgs = DiscordHelper.parseCommands(args);
-            long itemId = Item.getItemIdByItemName(parsedArgs[1]);
+            long itemId = ItemInfoAPI.getTypeIdByItemName(parsedArgs[1]).Result;
             Location location = new Location(Convert.ToInt64(parsedArgs[0]), getStationId(parsedArgs[2]));
 
             //TODO:
@@ -43,12 +44,13 @@ namespace EveLPBot.Commands
             //List<MarketOrder> sellOrders = new List<MarketOrder>();
             //sellOrders = MarketAPI.getSellOrdersForItem(location.regionId, itemId);
 
-            double cost = Blueprint.getSurfaceBuildCost(Item.getBlueprintByItemId(itemId), location);
+// double cost = Blueprint.getTotalSurfaceBuildCost(Item.getBlueprintByItemId(itemId), location);
 
             //List<MarketOrder> buyOrders = new List<MarketOrder>();
             //buyOrders = MarketAPI.getBuyOrdersForItem(location.regionId, itemId);
+            BlueprintData bd = new BlueprintData(Item.getBlueprintByItemId(itemId));
 
-            String message = "Build Cost: " + cost;
+            String message = bd.getCostSummary(location);
 
             message = DiscordHelper.TruncateString(message);
             await Context.Channel.SendMessageAsync(message);
@@ -59,7 +61,7 @@ namespace EveLPBot.Commands
         public async Task MarketAsync([Remainder]string args)
         {
             string[] parsedArgs = DiscordHelper.parseCommands(args);
-            long itemId = Item.getItemIdByItemName(parsedArgs[1]); 
+            long itemId = ItemInfoAPI.getTypeIdByItemName(parsedArgs[1]).Result; 
             Location location = new Location(Convert.ToInt64(parsedArgs[0]) , getStationId(parsedArgs[2]));
 
             //TODO:
@@ -77,13 +79,13 @@ namespace EveLPBot.Commands
             List<MarketOrder> buyOrders = new List<MarketOrder>();
             buyOrders = MarketAPI.getBuyOrdersForItem(location.regionId, itemId);
 
-            String message = aggregateMarketData(sellOrders, buyOrders, location.stationId);
+            String message = await aggregateMarketData(sellOrders, buyOrders, location.stationId);
             
             message = DiscordHelper.TruncateString(message);
             await Context.Channel.SendMessageAsync(message);
         }
 
-        private string aggregateMarketData(List<MarketOrder> sellOrders, List<MarketOrder> buyOrders, long stationId)
+        private async static Task<string> aggregateMarketData(List<MarketOrder> sellOrders, List<MarketOrder> buyOrders, long stationId)
         {
             string marketData = "";
 

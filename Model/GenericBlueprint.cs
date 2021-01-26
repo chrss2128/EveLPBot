@@ -18,6 +18,8 @@
 
         [JsonProperty("maxProductionLimit")]
         public long MaxProductionLimit { get; set; }
+
+        public LPStoreItem lpStoreItem { get; set; }
     }
 
     public partial class Activities

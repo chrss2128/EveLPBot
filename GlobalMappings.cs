@@ -1,4 +1,5 @@
 ﻿using EveLPBot.API;
+using EveLPBot.API.Database;
 using EveLPBot.Data;
 using EveLPBot.Model;
 
@@ -8,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace EveLPBot
 {
@@ -40,18 +42,50 @@ namespace EveLPBot
             npcCorporationList = JsonConvert.DeserializeObject<List<NPCCorporation>>(File.ReadAllText(Resource1.npccorpsmap, System.Text.Encoding.UTF8));
             Console.WriteLine("Completed Setup of NPC Corporation mappings");
             Console.WriteLine("Retrieving LP Store data from ESI");
-            lpStores = getAllLPStoreData(npcCorporationList);
+           // lpStores = getAllLPStoreData(npcCorporationList);
             Console.WriteLine("Retrieved LP Store data from ESI");
             Console.WriteLine("Completed setup of NPC Corporation data");
+            Console.WriteLine("Mapping LPStore costs to blueprints");
+            // mapBlueprintsToLPStoreCosts();
+            Console.WriteLine("Mapped LPStore costs to blueprints");
         }
 
         public static void TestStaticStuff()
         {
+            //foreach (GenericItem item in itemList)
+            //{
+            //    string name = ItemInfoAPI.getItemNameByTypeId(item.id).Result;
+            //    Console.WriteLine("ID: " + Convert.ToString(item.id) + " Name: " + name);
+            //}
             Console.WriteLine("Total Items: " + itemList.Count);
             Console.WriteLine("Total Universe Maps: " + universeMaps.Count);
             Console.WriteLine("Total Blueprints: " + blueprintList.Count);
             Console.WriteLine("Total NPC Corporations: " + npcCorporationList.Count);
-            Console.WriteLine("Total LP Stores: " + lpStores.Count);
+            //Console.WriteLine("Total LP Stores: " + lpStores.Count);
+        }
+
+        //TODO: This assumes all LP store costs are the same, that needs to be verified
+        private static void mapBlueprintsToLPStoreCosts()
+        {
+            foreach(GenericBlueprint blueprint in blueprintList)
+            {
+                foreach(LPStore store in lpStores)
+                {
+                    foreach(LPStoreItem item in store.lpStoreItems)
+                    {
+                        if (blueprint.BlueprintTypeId.Equals(item.type_id))
+                        {
+                            blueprint.lpStoreItem = item;
+                            Console.WriteLine("Mapped lpstore data to blueprint id " + blueprint.BlueprintTypeId);
+                            break;
+                        }
+                    }
+                    if (blueprint.lpStoreItem != null)
+                    {
+                        break;
+                    }
+                }
+            }
         }
 
         private static List<LPStore> getAllLPStoreData(List<NPCCorporation> corporations)

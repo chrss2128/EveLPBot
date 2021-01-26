@@ -120,6 +120,9 @@
   <data name="blueprintmap" xml:space="preserve">
     <value>Data\BlueprintMap.json</value>
   </data>
+  <data name="dbconfig" xml:space="preserve">
+    <value>Secure\db.config</value>
+  </data>
   <data name="idnamemap" xml:space="preserve">
     <value>Data\idnamemap.json</value>
   </data>

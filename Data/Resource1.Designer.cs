@@ -70,6 +70,15 @@ namespace EveLPBot.Data {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Secure\db.config.
+        /// </summary>
+        internal static string dbconfig {
+            get {
+                return ResourceManager.GetString("dbconfig", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Data\idnamemap.json.
         /// </summary>
         internal static string idnamemap {

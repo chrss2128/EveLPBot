@@ -10,6 +10,7 @@
     <None Remove="Data\idnamemap.json" />
     <None Remove="Data\npcCorpsMap.json" />
     <None Remove="Data\universemap.json" />
+    <None Remove="Secure\db.config" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,11 +26,15 @@
     <EmbeddedResource Include="Data\universemap.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Secure\db.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Discord.Net" Version="2.2.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Npgsql" Version="5.0.2" />
   </ItemGroup>
 
   <ItemGroup>
