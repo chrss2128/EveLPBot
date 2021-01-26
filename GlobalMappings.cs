@@ -19,8 +19,6 @@ namespace EveLPBot
 
         public static readonly List<GenericBlueprint> blueprintList;
 
-        public static readonly List<UniverseMap> universeMaps;
-
         public static readonly List<NPCCorporation> npcCorporationList;
 
         public static readonly List<LPStore> lpStores;
@@ -35,18 +33,19 @@ namespace EveLPBot
             Console.WriteLine("Completed setup of blueprint mappings");
             Console.WriteLine("Setting up universe data");
 
-            universeMaps = JsonConvert.DeserializeObject<List<UniverseMap>>(File.ReadAllText(Resource1.universemap, System.Text.Encoding.UTF8));
             Console.WriteLine("Completed setup of universe data");
             Console.WriteLine("Setting up NPC Corporation data");
             Console.WriteLine("Setting up NPC Corporation mappings");
             npcCorporationList = JsonConvert.DeserializeObject<List<NPCCorporation>>(File.ReadAllText(Resource1.npccorpsmap, System.Text.Encoding.UTF8));
             Console.WriteLine("Completed Setup of NPC Corporation mappings");
             Console.WriteLine("Retrieving LP Store data from ESI");
-           // lpStores = getAllLPStoreData(npcCorporationList);
+            lpStores = JsonConvert.DeserializeObject<List<LPStore>>(File.ReadAllText(Resource1.lpstoredata, System.Text.Encoding.UTF8));
             Console.WriteLine("Retrieved LP Store data from ESI");
             Console.WriteLine("Completed setup of NPC Corporation data");
             Console.WriteLine("Mapping LPStore costs to blueprints");
-            // mapBlueprintsToLPStoreCosts();
+
+
+            mapBlueprintsToLPStoreCosts();
             Console.WriteLine("Mapped LPStore costs to blueprints");
         }
 
@@ -58,7 +57,6 @@ namespace EveLPBot
             //    Console.WriteLine("ID: " + Convert.ToString(item.id) + " Name: " + name);
             //}
             Console.WriteLine("Total Items: " + itemList.Count);
-            Console.WriteLine("Total Universe Maps: " + universeMaps.Count);
             Console.WriteLine("Total Blueprints: " + blueprintList.Count);
             Console.WriteLine("Total NPC Corporations: " + npcCorporationList.Count);
             //Console.WriteLine("Total LP Stores: " + lpStores.Count);
@@ -76,7 +74,7 @@ namespace EveLPBot
                         if (blueprint.BlueprintTypeId.Equals(item.type_id))
                         {
                             blueprint.lpStoreItem = item;
-                            Console.WriteLine("Mapped lpstore data to blueprint id " + blueprint.BlueprintTypeId);
+                            Console.WriteLine("Mapped lpstore data to blueprint id " + blueprint.BlueprintTypeId + " Item Name: " + ItemInfoAPI.getItemNameByTypeId(blueprint.BlueprintTypeId).Result + " Quantity: " + Convert.ToString(item.quantity));
                             break;
                         }
                     }

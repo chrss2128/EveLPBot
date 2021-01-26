@@ -68,7 +68,8 @@ namespace EveLPBot.Logic
             {
                 producedItem = ItemInfoAPI.getItemNameByTypeId(product.TypeId).Result;
                 producedItemId = product.TypeId;
-                quantityProduced = product.Quantity;
+                //multiplies number of runs by quanitity produced (normally 1 but accounts for things like ammo)
+                quantityProduced = blueprint.lpStoreItem.quantity * product.Quantity;
             });
 
             String record1 = "Produced Item: " + producedItem + " Quantity: " + Convert.ToString(quantityProduced) + Environment.NewLine;

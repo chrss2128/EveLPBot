@@ -88,6 +88,15 @@ namespace EveLPBot.Data {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Data\lpstore.json.
+        /// </summary>
+        internal static string lpstoredata {
+            get {
+                return ResourceManager.GetString("lpstoredata", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Data\npcCorpsMap.json.
         /// </summary>
         internal static string npccorpsmap {

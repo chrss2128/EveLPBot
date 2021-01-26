@@ -100,8 +100,9 @@ namespace EveLPBot.Commands
         private long getStationId(string stationID)
         {
             long returnId = 0;
-            returnId = SystemEnums.systemNameStationIdMappings.GetValueOrDefault(stationID, 0);
+            returnId = UserEnumsAPI.getStationIdByStationEnum(stationID).Result;
 
+            //TODO: This needs to error if the enum isn't found instead of puking
             if (returnId == 0)
             {
                 returnId = Convert.ToInt64(stationID);

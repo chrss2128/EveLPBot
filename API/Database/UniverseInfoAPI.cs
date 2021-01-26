@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EveLPBot.API.Database
 {
-    static class UniverseInfoAPI
+    public static class UniverseInfoAPI
     {
 
         public static async Task<String> getRegionNameById(long id)

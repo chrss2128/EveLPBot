@@ -31,6 +31,8 @@ namespace EveLPBot.API.Database
 
             }
 
+            await conn.CloseAsync();
+
             return name;
         }
 
